@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 import glob
 import pickle
 
-def importData():
+def preprocessTrainingData():
     #import all the IMU data
     folder = 'train_data/*.txt'
     file_list = glob.glob(folder)
@@ -29,6 +29,7 @@ def importData():
     k = 100
     kmeans = KMeans(n_clusters=k, random_state=0).fit(allData)
     labels = kmeans.labels_
+    pickle.dump(kmeans, open('kmeans_model.pickle', 'wb'))
 
     #split the results back into the sequences
     result = np.array(np.split(labels,indices))
@@ -86,5 +87,5 @@ def importData():
     return beat3Obs, beat4Obs, circleObs, eightObs, infObs, waveObs
 
 if __name__ == "__main__":
-    importData()
+    preprocessTrainingData()
 

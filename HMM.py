@@ -28,7 +28,7 @@ class HMM():
                 alpha[j,obs] = sumOldAlphas * self.B[obs, j]
 
         #Termination
-        probObservations = np.sum(alpha[:,self.n_obs])
+        probObservations = np.sum(alpha[:,self.n_obs-1])
         return probObservations
 
     def log_forward(self, obs_sequence):
@@ -51,16 +51,15 @@ class HMM():
                 alpha[j,obs] = np.log(sumOldAlphas) + np.log(self.B[obs, j])
 
         #Termination
-        probObservations = np.sum(alpha[:,self.n_obs])
+        probObservations = np.sum(alpha[:,self.n_obs-1])
         return probObservations
-
 
     def backward(self, obs_sequence):
         beta = np.zeros((self.n_states,self.n_obs))
 
         #Initalization
         for i in range(0,self.n_states):
-            beta[i,self.n_obs] = 1
+            beta[i,self.n_obs-1] = 1
 
         #induction
         for obs in range(self.n_obs-1,-1,-1): #from the second to last observation to the first observation
@@ -80,7 +79,7 @@ class HMM():
 
         #Initalization
         for i in range(0,self.n_states):
-            beta[i,self.n_obs] = np.log(1)
+            beta[i,self.n_obs-1] = np.log(1)
 
         #induction
         for obs in range(self.n_obs-1,-1,-1): #from the second to last observation to the first observation

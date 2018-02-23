@@ -1,0 +1,4 @@
+preprocessTrainingData is used to run k-means and descretize the data and then convert it into 6 matrices (one for each
+kind of gesture), and each matrix has multiple sequences of observations associated with that gesture.
+
+In order to test, open classifyTestData and edit the fileName where the data is stored and then press run.
