@@ -28,7 +28,7 @@ def gestureRecognition():
     n_states = 10
 
     #number of observation types M
-    n_obs = 100
+    n_obs = 30
 
     #Create an HMM for each of the different gestures
 
@@ -45,8 +45,9 @@ def gestureRecognition():
     #test the forward backwards algorithm on one of the datasets
     hmm = HMM(n_states, n_obs, pi, A, B)
     testSequence = np.array(beat3Obs[0])
-    probObservations = hmm.log_forward(testSequence)
+    probObservations = hmm.log_backward(testSequence)
     print probObservations
+
 
 
 if __name__ == "__main__":

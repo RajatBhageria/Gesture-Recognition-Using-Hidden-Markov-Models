@@ -26,7 +26,7 @@ def preprocessTrainingData():
         indices = np.hstack((indices,totalVals))
 
     #run k-means and crate 100 clusters
-    k = 100
+    k = 30
     kmeans = KMeans(n_clusters=k, random_state=0).fit(allData)
     labels = kmeans.labels_
     pickle.dump(kmeans, open('kmeans_model.pickle', 'wb'))
