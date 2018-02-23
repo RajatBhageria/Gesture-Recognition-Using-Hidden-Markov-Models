@@ -3,6 +3,7 @@ import math
 import numpy as np
 from sklearn.cluster import KMeans
 import glob
+import pickle
 
 def importData():
     #import all the IMU data
@@ -26,7 +27,7 @@ def importData():
 
     #run k-means and crate 100 clusters
     k = 100
-    kmeans = KMeans(n_clusters=10, random_state=0).fit(allData)
+    kmeans = KMeans(n_clusters=k, random_state=0).fit(allData)
     labels = kmeans.labels_
 
     #split the results back into the sequences
@@ -68,6 +69,19 @@ def importData():
     eightObs = np.array(eightObs)
     infObs = np.array(infObs)
     waveObs = np.array(waveObs)
+
+    with open('beat3Obs.pickle', 'wb') as handle:
+        pickle.dump(beat3Obs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('beat4Obs.pickle', 'wb') as handle:
+        pickle.dump(beat4Obs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('circleObs.pickle', 'wb') as handle:
+        pickle.dump(circleObs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('eightObs.pickle', 'wb') as handle:
+        pickle.dump(eightObs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('infObs.pickle', 'wb') as handle:
+        pickle.dump(infObs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('waveObs.pickle', 'wb') as handle:
+        pickle.dump(waveObs, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     return beat3Obs, beat4Obs, circleObs, eightObs, infObs, waveObs
 
