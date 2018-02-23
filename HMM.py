@@ -51,7 +51,7 @@ class HMM():
                 alpha[j,obs+1] = np.log(sumOldAlphas) + np.log(self.B[obs+1, j])
 
         #Termination
-        probObservations = np.sum(alpha[:,self.n_obs-1])
+        probObservations = np.exp(np.sum(alpha[:,self.n_obs-1]))
         return probObservations, alpha
 
     # def backward(self, obs_sequence):
@@ -98,31 +98,30 @@ class HMM():
                     totalSum = totalSum + np.exp(sum)
                 beta[i,obs] = np.log(totalSum)
 
-        #termination
-        probObservations = 0
-        for state in range(0,self.n_states):
-            probObservations = probObservations + np.exp(np.log(beta[i, 0]) + np.log(self.Pi[i]))
-        probObservations = np.log(probObservations)
-        return probObservations, beta
+        # #termination
+        # probObservations = 0
+        # for state in range(0,self.n_states):
+        #     probObservations = probObservations + np.exp(np.log(beta[i, 0]) + np.log(self.Pi[i]))
+        # probObservations = np.log(probObservations)
+        return beta
 
 
     def baum_welch(self, obs_sequence_list, max_iter=100):
-        [probObservations,alpha] = self.log_forward(obs_sequence_list)
-        [_,beta] = self.log_backward(obs_sequence_list)
+        [probObservations,logAlpha] = self.log_forward(obs_sequence_list)
+        logBeta = self.log_backward(obs_sequence_list)
 
         ##Find xi [n_states x n_states x n_obs - 1]
         xi = np.empty((self.n_states,self.n_states,self.n_obs-1))
         for t in range(0,self.n_obs-1):
             for i in range(0,self.n_states):
                 for j in range(0,self.n_states):
-                    numerator = alpha[i,t] * self.A[i,j] * self.B(t+1,j) * beta[j,t+1]
+                    numerator = logAlpha[i,t] + np.log(self.A[i,j]) + np.log(self.B[t+1,j]) + logBeta[j,t+1]
                     denominator = probObservations
                     prob = numerator/denominator
                     xi[i,j,t] = prob
 
-
         ##Find Gamma [n_states x n_obs -1]
-        gamma = np.empty((self.n_obs,self.n_obs-1))
+        gamma = np.empty((self.n_states,self.n_obs-1))
         gamma = np.sum(xi,axis=1)
 
         ##Find PiBar
@@ -133,8 +132,11 @@ class HMM():
         transitionsFromIToJ = np.sum(xi,axis=2) #sum over time
         #This is a [n_state x 1] matrix
         transitionsFromI = np.sum(gamma,axis=1) #sum over time
-
         ABar = transitionsFromIToJ / transitionsFromI
 
         #Find B bar
+        #find the new gamma for gamma up to time t 
+        gammaUpToT = np.empty((self.n_states, self.n_obs))
+        for i in range(0,self.n_states):
+            y[i,t] = logAlpha[i,:] + logBeta[i,:]
 
