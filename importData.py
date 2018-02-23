@@ -1,0 +1,76 @@
+from scipy import io
+import math
+import numpy as np
+from sklearn.cluster import KMeans
+import glob
+
+def importData():
+    #import all the IMU data
+    folder = 'train_data/*.txt'
+    file_list = glob.glob(folder)
+    allData = np.empty((0,5))
+
+    #combine the data to do k-means
+    gestures = np.empty((0,1),dtype='object')
+    indices = np.empty((1,),dtype='int')
+    totalVals = 0
+    for i in range(0,len(file_list)):
+        fileName = file_list[i]
+        IMU = np.loadtxt(fileName)
+        dataSansTime = IMU[:,1:6]
+        numValsInSequence = dataSansTime.shape[0]
+        allData = np.vstack((allData,dataSansTime)) #everything except time
+        gestures = np.vstack((gestures,fileName))
+        totalVals = totalVals + numValsInSequence + 1
+        indices = np.hstack((indices,totalVals))
+
+    #run k-means and crate 100 clusters
+    k = 100
+    kmeans = KMeans(n_clusters=10, random_state=0).fit(allData)
+    labels = kmeans.labels_
+
+    #split the results back into the sequences
+    result = np.array(np.split(labels,indices))
+    result = result[1:len(result)-1]
+
+    #create objects to actually hold the observations
+    beat3Obs = [] #np.zeros((0,5000))
+    beat4Obs = []
+    circleObs = []
+    eightObs = []
+    infObs = []
+    waveObs = []
+
+    #find max number of observations
+
+    for i in range (0,len(result)):
+        #find the name of the particular gesture
+        gestureI = str(gestures[i])
+        dataSequence = result[i].T
+        dataSequence = np.ndarray.tolist(dataSequence)
+
+        if (gestureI.__contains__("beat3")):
+            beat3Obs.append(dataSequence)
+        elif (gestureI.__contains__("beat4")):
+            beat4Obs.append(dataSequence)
+        elif (gestureI.__contains__("circle")):
+            circleObs.append(dataSequence)
+        elif (gestureI.__contains__("eight")):
+            eightObs.append(dataSequence)
+        elif (gestureI.__contains__("inf")):
+            infObs.append(dataSequence)
+        elif (gestureI.__contains__("wave")):
+            waveObs.append(dataSequence)
+
+    beat3Obs = np.array(beat3Obs)
+    beat4Obs = np.array(beat4Obs)
+    circleObs = np.array(circleObs)
+    eightObs = np.array(eightObs)
+    infObs = np.array(infObs)
+    waveObs = np.array(waveObs)
+
+    return beat3Obs, beat4Obs, circleObs, eightObs, infObs, waveObs
+
+if __name__ == "__main__":
+    importData()
+
