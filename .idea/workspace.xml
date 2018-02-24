@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5085d5ce-e466-49bc-a198-4d95c4b7404a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/exampleFile.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/predictTestGesture.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/trainGestureModel.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/testFile.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/HMM.py" afterPath="$PROJECT_DIR$/HMM.py" />
-      <change beforePath="$PROJECT_DIR$/classifyTestData.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/gestureRecognition.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/exampleFile.py" afterPath="$PROJECT_DIR$/exampleFile.py" />
+      <change beforePath="$PROJECT_DIR$/predictTestGesture.py" afterPath="$PROJECT_DIR$/predictTestGesture.py" />
+      <change beforePath="$PROJECT_DIR$/preprocessTrainingData.py" afterPath="$PROJECT_DIR$/preprocessTrainingData.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +21,8 @@
       <file leaf-file-name="trainGestureModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainGestureModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="100">
+              <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -31,11 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="predictTestGesture.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/predictTestGesture.py">
+      <file leaf-file-name="exampleFile.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/exampleFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="158">
+              <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testFile.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testFile.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="45" lean-forward="true" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -46,9 +55,11 @@
       <file leaf-file-name="HMM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HMM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-267">
-              <caret line="34" column="41" lean-forward="true" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="331">
+              <caret line="118" column="19" lean-forward="false" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -56,8 +67,8 @@
       <file leaf-file-name="preprocessTrainingData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/preprocessTrainingData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="84" column="70" lean-forward="true" selection-start-line="83" selection-start-column="4" selection-end-line="84" selection-end-column="70" />
+            <state relative-caret-position="-392">
+              <caret line="38" column="17" lean-forward="false" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -75,6 +86,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>alpha[:,self.n_obs-1]</find>
+      <find>pi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -85,17 +97,18 @@
       <list>
         <option value="$PROJECT_DIR$/importData.py" />
         <option value="$PROJECT_DIR$/README" />
-        <option value="$PROJECT_DIR$/preprocessTrainingData.py" />
-        <option value="$PROJECT_DIR$/exampleFile.py" />
         <option value="$PROJECT_DIR$/gestureRecognition.py" />
         <option value="$PROJECT_DIR$/classifyTestData.py" />
-        <option value="$PROJECT_DIR$/HMM.py" />
-        <option value="$PROJECT_DIR$/trainGestureModel.py" />
         <option value="$PROJECT_DIR$/predictTestGesture.py" />
+        <option value="$PROJECT_DIR$/preprocessTrainingData.py" />
+        <option value="$PROJECT_DIR$/trainGestureModel.py" />
+        <option value="$PROJECT_DIR$/exampleFile.py" />
+        <option value="$PROJECT_DIR$/testFile.py" />
+        <option value="$PROJECT_DIR$/HMM.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="5" />
     <option name="y" value="24" />
     <option name="width" value="1436" />
@@ -123,11 +136,6 @@
               <item name="Gesture-Recognition" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gesture-Recognition" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Gesture-Recognition" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gesture-Recognition" type="462c0819:PsiDirectoryNode" />
-              <item name="train_data" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -139,6 +147,12 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/preprocessedTrainingData" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -152,7 +166,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predictTestGesture">
+  <component name="RunManager" selected="Python.testFile">
     <configuration name="exampleFile" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -225,18 +239,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="4">
+    <configuration name="testFile" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Gesture-Recognition" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testFile.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.importData" />
       <item index="1" class="java.lang.String" itemvalue="Python.gestureRecognition" />
       <item index="2" class="java.lang.String" itemvalue="Python.exampleFile" />
       <item index="3" class="java.lang.String" itemvalue="Python.predictTestGesture" />
+      <item index="4" class="java.lang.String" itemvalue="Python.testFile" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.predictTestGesture" />
-        <item index="1" class="java.lang.String" itemvalue="Python.gestureRecognition" />
-        <item index="2" class="java.lang.String" itemvalue="Python.exampleFile" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.testFile" />
+        <item index="1" class="java.lang.String" itemvalue="Python.exampleFile" />
+        <item index="2" class="java.lang.String" itemvalue="Python.gestureRecognition" />
         <item index="3" class="java.lang.String" itemvalue="Python.importData" />
+        <item index="4" class="java.lang.String" itemvalue="Python.predictTestGesture" />
       </list>
     </recent_temporary>
   </component>
@@ -257,10 +291,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="5" y="24" width="1436" height="877" extended-state="0" />
+    <frame x="5" y="24" width="1435" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25017422" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -284,7 +318,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -337,49 +371,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/exampleFile.py">
+    <entry file="file://$PROJECT_DIR$/predictTestGesture.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="585">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
-            <element signature="e#36#55#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/preprocessTrainingData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="84" column="70" lean-forward="true" selection-start-line="83" selection-start-column="4" selection-end-line="84" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HMM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-267">
-          <caret line="34" column="41" lean-forward="true" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trainGestureModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state relative-caret-position="100">
+          <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/predictTestGesture.py">
+    <entry file="file://$PROJECT_DIR$/preprocessTrainingData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="-392">
+          <caret line="38" column="17" lean-forward="false" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HMM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="118" column="19" lean-forward="false" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="45" lean-forward="true" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/exampleFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>

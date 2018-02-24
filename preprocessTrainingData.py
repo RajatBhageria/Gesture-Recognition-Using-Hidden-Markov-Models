@@ -36,7 +36,7 @@ def preprocessTrainingData():
     result = result[1:len(result)-1]
 
     #create objects to actually hold the observations
-    beat3Obs = [] #np.zeros((0,5000))
+    beat3Obs = []
     beat4Obs = []
     circleObs = []
     eightObs = []
