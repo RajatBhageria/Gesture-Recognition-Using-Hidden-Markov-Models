@@ -28,8 +28,8 @@ class HMM():
                 alpha[j,obs+1] = np.log(sumOldAlphas) + np.log(self.B[obs+1, j])
 
         #Termination
-        probObservations = np.sum(alpha[:,self.n_obs-1])
-        return probObservations, alpha
+        logProbObservations = np.sum(alpha[:,self.n_obs-1])
+        return logProbObservations, alpha
 
 
     def log_backward(self, obs_sequence):
@@ -51,11 +51,6 @@ class HMM():
                     totalSum = totalSum + np.exp(sum)
                 beta[i,obs] = np.log(totalSum)
 
-        # #termination
-        # probObservations = 0
-        # for state in range(0,self.n_states):
-        #     probObservations = probObservations + np.exp(np.log(beta[i, 0]) + np.log(self.Pi[i]))
-        # probObservations = np.log(probObservations)
         return beta
 
 
@@ -115,4 +110,4 @@ class HMM():
             #increase counter by one for the next iteration
             counter = counter + 1
 
-        print self.A
+        return np.exp(self.A), np.exp(self.B), np.exp(self.Pi)
