@@ -73,11 +73,7 @@ class HMM():
                     for i in range(0,self.n_states):
                         for j in range(0,self.n_states):
                             numerator = logAlpha[i,t] + np.log(self.A[i,j]) + np.log(self.B[obsTP1,j]) + logBeta[j,t+1]
-                            denominator = probObservations
-                            if denominator == -float("inf"):
-                                xi[i,j,t] = -float("inf")
-                            else:
-                                xi[i,j,t] = numerator-denominator #make sure this is subtraction not addition
+                            xi[i,j,t] = numerator-probObservations
 
                 ##Find Gamma [n_states x n_obs -1]
                 gamma = np.empty((self.n_states,self.n_obs-1))
@@ -91,7 +87,7 @@ class HMM():
                 transitionsFromIToJ = logsumexp(xi,axis=2) #sum over time
                 #This is a [n_state x 1] matrix
                 transitionsFromI = logsumexp(gamma,axis=1) #sum over time
-                ABar = transitionsFromIToJ - transitionsFromI #make sure it's subtraction not
+                ABar = transitionsFromIToJ - transitionsFromI
 
                 #Find B bar
                 #find the new gamma for gamma up to time t
@@ -108,10 +104,12 @@ class HMM():
                     for t in range(0,self.n_obs):
                         #add to total only if observed is the same as the row of the B matrix
                         if t==k:
-                            expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + gammaUpToT[:,t]
+                            expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:,t])
+                    expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
+
                     #find denominator
-                    expectedTimesStateJ = np.sum(gammaUpToT, axis=1)
-                    BBar[k,:] = (expectedTimesStateJAndObservingVk / expectedTimesStateJ).T
+                    expectedTimesStateJ = logsumexp(gammaUpToT, axis=1)
+                    BBar[k,:] = (expectedTimesStateJAndObservingVk - expectedTimesStateJ).T
 
                 ##Set A = ABar, B = Bar, and Pi = PiBar
                 self.A = np.exp(ABar)
