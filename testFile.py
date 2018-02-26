@@ -20,9 +20,15 @@ B = B / B.sum(axis=1)[:, None]
 
 with open('beat3Obs.pickle', 'rb') as handle:
     observationSequences = pickle.load(handle)
+with open('beat4Obs.pickle', 'rb') as handle:
+    test = pickle.load(handle)
 # Generate the trained HMM model for the correct gesture
 hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
 observationSequence = observationSequences[0]
-[A, B, pi] = hmmModelOfGesture.baum_welch(observationSequence,max_iter=1)
 [prob, alpha] = hmmModelOfGesture.log_forward(observationSequence)
+[A, B, pi] = hmmModelOfGesture.baum_welch(observationSequence,max_iter=5)
+print np.sum(A[:,9])
+print np.sum(B[:,9])
+print np.sum(pi)
+[prob, alpha] = hmmModelOfGesture.log_forward(test[0])
 print np.exp(prob)

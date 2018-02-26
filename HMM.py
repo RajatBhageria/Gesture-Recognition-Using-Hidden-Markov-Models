@@ -16,20 +16,21 @@ class HMM():
         #Initalization
         obsZero = obs_sequence[0]
         for i in range(0,self.n_states):
-            val = np.log(self.Pi[i]) + np.log(self.B[obsZero,i])
-            alpha[i,0] = val
+            alpha[i,0] = np.log(self.Pi[i]) + np.log(self.B[obsZero,i])
 
         #Induction
         for obs in range(0,self.n_obs-1):
             obsTP1 = obs_sequence[obs+1]
             for j in range(0,self.n_states):
-                sumOldAlphas = 0
-                for i in range(0, self.n_states):
-                    alphaI = alpha[i,obs]
-                    AIJ = np.log(self.A[i, j])
-                    sum = alphaI + AIJ
-                    sumOldAlphas = sumOldAlphas + np.exp(sum)
-                alpha[j,obs+1] = np.log(sumOldAlphas) + np.log(self.B[obsTP1, j])
+                AIJ = np.log(self.A[:,j])
+                alphaI = alpha[:,obs]
+                sumOldAlphas = logsumexp(AIJ + alphaI)
+                # for i in range(0, self.n_states):
+                #     alphaI = alpha[i,obs]
+                #     AIJ = np.log(self.A[i, j])
+                #     sum = alphaI + AIJ
+                #     sumOldAlphas = sumOldAlphas + np.exp(sum)
+                alpha[j,obs+1] = sumOldAlphas + np.log(self.B[obsTP1, j])
 
         #Termination
         logProbObservations = logsumexp(alpha[:,self.n_obs-1])
@@ -46,14 +47,17 @@ class HMM():
         for obs in range(self.n_obs-2,-1,-1): #from the second to last observation to the first observation
             obsTP1 = obs_sequence[obs+1]
             for i in range(0,self.n_states):
-                totalSum = 0
-                for j in range(0, self.n_states):
-                    AIJ = np.log(self.A[i,j])
-                    BJ = np.log(self.B[obsTP1,j])
-                    betaT = beta[j,obs+1]
-                    sum = AIJ + BJ + betaT
-                    totalSum = totalSum + np.exp(sum)
-                beta[i,obs] = np.log(totalSum)
+                AIJ = np.log(self.A[i, :])
+                BJ = np.log(self.B[obsTP1, :])
+                betaT = beta[:, obs + 1]
+                totalSum = logsumexp(AIJ + BJ + betaT)
+                # for j in range(0, self.n_states):
+                #     AIJ = np.log(self.A[i,j])
+                #     BJ = np.log(self.B[obsTP1,j])
+                #     betaT = beta[j,obs+1]
+                #     sum = AIJ + BJ + betaT
+                #     totalSum = totalSum + np.exp(sum)
+                beta[i,obs] = totalSum
         return beta
 
     def baum_welch(self, obs_sequence_list, max_iter=100):
@@ -93,6 +97,7 @@ class HMM():
                 #find the new gamma for gamma up to time t
                 BBar = np.empty((self.B.shape))
                 gammaUpToT = np.empty((self.n_states, self.n_obs))
+
                 for t in range(0,self.n_obs):
                     for i in range(0,self.n_states):
                         gammaUpToT[i,t] = (logAlpha[i,t] + logBeta[i,t]) - probObservations
@@ -103,8 +108,10 @@ class HMM():
 
                     for t in range(0,self.n_obs):
                         #add to total only if observed is the same as the row of the B matrix
-                        if t==k:
+                        observationT = sequence[t]
+                        if observationT==k:
                             expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:,t])
+
                     expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
 
                     #find denominator

@@ -11,20 +11,6 @@ def trainGestureModel():
     #if want to pre-process data
     #beat3Obs, beat4Obs, circleObs, eightObs, infObs, waveObs = preprocessTrainingData()
 
-    # #else simply load saved pre-process data
-    # with open('beat3Obs.pickle', 'rb') as handle:
-    #     beat3Obs = pickle.load(handle)
-    # with open('beat4Obs.pickle', 'rb') as handle:
-    #     beat4Obs = pickle.load(handle)
-    # with open('circleObs.pickle', 'rb') as handle:
-    #     circleObs = pickle.load(handle)
-    # with open('eightObs.pickle', 'rb') as handle:
-    #     eightObs = pickle.load(handle)
-    # with open('infObs.pickle', 'rb') as handle:
-    #     infObs = pickle.load(handle)
-    # with open('waveObs.pickle', 'rb') as handle:
-    #     waveObs = pickle.load(handle)
-
     #number of hidden states N
     n_states = 10
 
@@ -55,7 +41,7 @@ def trainGestureModel():
         hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
         for j in range(0,len(observationSequences)):
             observationSequence = observationSequences[j]
-            hmmModelOfGesture.baum_welch(observationSequence)
+            hmmModelOfGesture.baum_welch(observationSequence,max_iter=30)
         #Add the model to the list of models
         HMMModels[gesture] = hmmModelOfGesture
 
