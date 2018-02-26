@@ -63,7 +63,6 @@ def inv_sampling(pdf):
         if r <= p:
             return i
 
-
 if __name__ == "__main__":
     [A, B, Pi, observations] = generate_observations('oober',5)
     n_states = A.shape[0]
