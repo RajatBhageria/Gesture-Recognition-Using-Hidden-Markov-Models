@@ -1,4 +1,21 @@
+There are 5 main files
+* preprocessTrainingData.py
+* HMM.py
+* trainGestureModel.py
+* predictTestGesture.py
+
 preprocessTrainingData is used to run k-means and descretize the data and then convert it into 6 matrices (one for each
-kind of gesture), and each matrix has multiple sequences of observations associated with that gesture.
+kind of gesture), and each matrix has multiple sequences of observations associated with that gesture. This file then saves
+these arrays as beat3Obs.pickle, beat4Obs.pickle, and etc for the rest of the files.
+
+HMM has three main functions, one that does log forward, one that does log backward, and one that does baum-walch.
+
+trainGestureModel reads in the different pickle files with the observation sequences that prepreocessTrainingData generated,
+creates a HMM for each of the 6 gestures, and then runs baum-walch for each of the 6 gestures on the training data,
+and then it saves the trained models as a pickle file "HMMModels.picke"
+
+predictTestGesture takes in a filename of the test sequence, loads the 6 HMM models for each of the gestures, and then
+runs the forward algorithm on the sequence on each of the models and then returns the name of the gesture that has
+the highest probaility.
 
 In order to test, open classifyTestData and edit the fileName where the data is stored and then press run.

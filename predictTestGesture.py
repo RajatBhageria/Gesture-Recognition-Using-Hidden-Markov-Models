@@ -6,7 +6,7 @@ from trainGestureModel import trainGestureModel
 #returns a striong of the predicted gesture from a list of 'beat3','beat4','circle','eight','inf','wave'
 def predictTestGesture(fileName = None):
     #filename = 'test_data/file.txt'
-    filename = 'train_data/inf11.txt'
+    filename = 'train_data/eight07.txt'
     IMU = np.loadtxt(filename)
     allData = IMU[:,1:6]
 
@@ -23,19 +23,17 @@ def predictTestGesture(fileName = None):
     HMMModels = pickle.load(open('HMMModels.pickle', 'rb'))
 
     #Predict the model that generated the sequence of observations using argmax
-    maxProability = 0
+    maxProability = -float("inf")
     predictedGestureName = ""
     for i in range(0,len(HMMModels)):
         gestureName = gestureNames[i]
         model = HMMModels[i,0]
-
         #Use the forward algorithm to find the probaility that the model predicts the sequence
         [logProbabilityOfObs,_] = model.log_forward(observationSequence)
-        probabilityOfObs = np.exp(logProbabilityOfObs)
-
+        print gestureName+" "+str(logProbabilityOfObs)
         #Check if this model has a higher probaility than the higest so far
-        if probabilityOfObs > maxProability:
-            maxProability = probabilityOfObs
+        if logProbabilityOfObs > maxProability:
+            maxProability = logProbabilityOfObs
             predictedGestureName = gestureName
 
     #return the name of that gesture

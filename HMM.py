@@ -27,7 +27,6 @@ class HMM():
                 alphaI = alpha[:,t]
                 sumOldAlphas = logsumexp(AIJ + alphaI)
                 alpha[j,t+1] = sumOldAlphas + np.log(self.B[obsTP1, j])
-
         #Termination
         logProbObservations = logsumexp(alpha[:,T-1])
         return logProbObservations, alpha
@@ -85,7 +84,6 @@ class HMM():
                 ABar = transitionsFromIToJ - transitionsFromI
 
                 #Find B bar
-                #find the new gamma for gamma up to time t
                 BBar = np.empty((self.B.shape))
                 gammaUpToT = np.empty((self.n_states, T))
 
@@ -93,22 +91,20 @@ class HMM():
                     for i in range(0,self.n_states):
                         gammaUpToT[i,t] = (logAlpha[i,t] + logBeta[i,t]) - probObservations
 
-                for k in range(0,self.n_obs):
+                for k in range(0, self.n_obs):
                     # Find numerator
                     expectedTimesStateJAndObservingVk = np.zeros((self.n_states,))
 
-                    for t in range(0,T):
-                        #add to total only if observed is the same as the row of the B matrix
+                    for t in range(0, T):
+                        # add to total only if observed is the same as the row of the B matrix
                         observationT = sequence[t]
-                        if observationT==k:
+                        if observationT == k:
                             expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:,t])
-
                     expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
 
-                    #find denominator
+                    # find denominator
                     expectedTimesStateJ = logsumexp(gammaUpToT, axis=1)
-                    BBar[k,:] = (expectedTimesStateJAndObservingVk - expectedTimesStateJ).T
-
+                    BBar[k, :] = (expectedTimesStateJAndObservingVk - expectedTimesStateJ).T
                 ##Set A = ABar, B = Bar, and Pi = PiBar
                 self.A = np.exp(ABar)
                 self.B = np.exp(BBar)

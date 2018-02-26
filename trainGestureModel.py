@@ -41,7 +41,7 @@ def trainGestureModel():
         hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
         for j in range(0,len(observationSequences)):
             observationSequence = observationSequences[j]
-            hmmModelOfGesture.baum_welch(observationSequence,max_iter=30)
+            hmmModelOfGesture.baum_welch(observationSequence,max_iter=1)
         #Add the model to the list of models
         HMMModels[gesture] = hmmModelOfGesture
 

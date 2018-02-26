@@ -26,9 +26,10 @@ with open('beat4Obs.pickle', 'rb') as handle:
 hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
 observationSequence = observationSequences[0]
 [prob, alpha] = hmmModelOfGesture.log_forward(observationSequence)
-[A, B, pi] = hmmModelOfGesture.baum_welch(observationSequence,max_iter=1)
+[A, B, pi] = hmmModelOfGesture.baum_welch(observationSequence,max_iter=100)
+
 print np.sum(A[:,9])
-print np.sum(B[:,9])
+print np.sum(B[:,0])
 print np.sum(pi)
-[prob, alpha] = hmmModelOfGesture.log_forward(test[0])
-print np.exp(prob)
+
+[prob, alpha] = hmmModelOfGesture.log_forward(observationSequence)
