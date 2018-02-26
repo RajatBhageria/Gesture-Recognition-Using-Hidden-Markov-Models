@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5085d5ce-e466-49bc-a198-4d95c4b7404a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/HMM.py" afterPath="$PROJECT_DIR$/HMM.py" />
-      <change beforePath="$PROJECT_DIR$/HMMModels.pickle" afterPath="$PROJECT_DIR$/HMMModels.pickle" />
-      <change beforePath="$PROJECT_DIR$/predictTestGesture.py" afterPath="$PROJECT_DIR$/predictTestGesture.py" />
       <change beforePath="$PROJECT_DIR$/testFile.py" afterPath="$PROJECT_DIR$/testFile.py" />
-      <change beforePath="$PROJECT_DIR$/trainGestureModel.py" afterPath="$PROJECT_DIR$/trainGestureModel.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,18 +36,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testFile.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testFile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="exampleFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/exampleFile.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -65,9 +49,22 @@
       <file leaf-file-name="predictTestGesture.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/predictTestGesture.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="58">
               <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="15" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testFile.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testFile.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1519673547000" expanded="true" signature="837:899" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,8 +72,8 @@
       <file leaf-file-name="HMM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HMM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="52" column="46" lean-forward="false" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
+            <state relative-caret-position="101">
+              <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -350,6 +347,7 @@
           <caret line="26" column="1" lean-forward="false" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1519673547000" expanded="true" signature="837:899" ph="..." />
           </folding>
         </state>
       </provider>
@@ -434,19 +432,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/predictTestGesture.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="58">
           <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="15" />
           <folding />
         </state>
@@ -460,10 +448,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HMM.py">
+    <entry file="file://$PROJECT_DIR$/testFile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
-          <caret line="52" column="46" lean-forward="false" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
+          <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1519673547000" expanded="true" signature="837:899" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HMM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="58" column="32" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

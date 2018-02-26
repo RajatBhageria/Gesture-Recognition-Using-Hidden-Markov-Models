@@ -25,11 +25,6 @@ class HMM():
                 AIJ = np.log(self.A[:,j])
                 alphaI = alpha[:,obs]
                 sumOldAlphas = logsumexp(AIJ + alphaI)
-                # for i in range(0, self.n_states):
-                #     alphaI = alpha[i,obs]
-                #     AIJ = np.log(self.A[i, j])
-                #     sum = alphaI + AIJ
-                #     sumOldAlphas = sumOldAlphas + np.exp(sum)
                 alpha[j,obs+1] = sumOldAlphas + np.log(self.B[obsTP1, j])
 
         #Termination
@@ -51,12 +46,6 @@ class HMM():
                 BJ = np.log(self.B[obsTP1, :])
                 betaT = beta[:, obs + 1]
                 totalSum = logsumexp(AIJ + BJ + betaT)
-                # for j in range(0, self.n_states):
-                #     AIJ = np.log(self.A[i,j])
-                #     BJ = np.log(self.B[obsTP1,j])
-                #     betaT = beta[j,obs+1]
-                #     sum = AIJ + BJ + betaT
-                #     totalSum = totalSum + np.exp(sum)
                 beta[i,obs] = totalSum
         return beta
 
@@ -66,6 +55,8 @@ class HMM():
             #need a for loop here I think?
             #numObsSequences = len(obs_sequence_list)
                 sequence = obs_sequence_list
+                print np.array(sequence).shape
+                print self.n_obs
 
                 [probObservations,logAlpha] = self.log_forward(sequence)
                 logBeta = self.log_backward(sequence)
