@@ -64,8 +64,9 @@ def inv_sampling(pdf):
             return i
 
 if __name__ == "__main__":
-    [A, B, Pi, observations] = generate_observations('oober',5)
+    [A, B, Pi, observations] = generate_observations('oober',100)
     n_states = A.shape[0]
-    HMM = HMM(n_states, 5, Pi.T, A, B.T)
+    n_obs = 5
+    HMM = HMM(n_states, n_obs, Pi.T, A, B.T)
     HMM.baum_welch(observations, max_iter=1)
 

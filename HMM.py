@@ -11,7 +11,8 @@ class HMM():
         self.B = B
 
     def log_forward(self, obs_sequence):
-        alpha = np.zeros((self.n_states,self.n_obs))
+        [T,] = np.array(obs_sequence).shape
+        alpha = np.zeros((self.n_states,T))
 
         #Initalization
         obsZero = obs_sequence[0]
@@ -19,34 +20,35 @@ class HMM():
             alpha[i,0] = np.log(self.Pi[i]) + np.log(self.B[obsZero,i])
 
         #Induction
-        for obs in range(0,self.n_obs-1):
-            obsTP1 = obs_sequence[obs+1]
+        for t in range(0,T-1):
+            obsTP1 = obs_sequence[t+1]
             for j in range(0,self.n_states):
                 AIJ = np.log(self.A[:,j])
-                alphaI = alpha[:,obs]
+                alphaI = alpha[:,t]
                 sumOldAlphas = logsumexp(AIJ + alphaI)
-                alpha[j,obs+1] = sumOldAlphas + np.log(self.B[obsTP1, j])
+                alpha[j,t+1] = sumOldAlphas + np.log(self.B[obsTP1, j])
 
         #Termination
-        logProbObservations = logsumexp(alpha[:,self.n_obs-1])
+        logProbObservations = logsumexp(alpha[:,T-1])
         return logProbObservations, alpha
 
     def log_backward(self, obs_sequence):
-        beta = np.zeros((self.n_states,self.n_obs))
+        [T,] = np.array(obs_sequence).shape
+        beta = np.zeros((self.n_states,T))
 
         #Initalization
         for i in range(0,self.n_states):
             beta[i,self.n_obs-1] = np.log(1)
 
         #induction
-        for obs in range(self.n_obs-2,-1,-1): #from the second to last observation to the first observation
-            obsTP1 = obs_sequence[obs+1]
+        for t in range(T-2,-1,-1): #from the second to last observation to the first observation
+            obsTP1 = obs_sequence[t+1]
             for i in range(0,self.n_states):
                 AIJ = np.log(self.A[i, :])
                 BJ = np.log(self.B[obsTP1, :])
-                betaT = beta[:, obs + 1]
+                betaT = beta[:, t + 1]
                 totalSum = logsumexp(AIJ + BJ + betaT)
-                beta[i,obs] = totalSum
+                beta[i,t] = totalSum
         return beta
 
     def baum_welch(self, obs_sequence_list, max_iter=100):
@@ -55,15 +57,13 @@ class HMM():
             #need a for loop here I think?
             #numObsSequences = len(obs_sequence_list)
                 sequence = obs_sequence_list
-                print np.array(sequence).shape
-                print self.n_obs
-
+                [T,] = np.array(sequence).shape
                 [probObservations,logAlpha] = self.log_forward(sequence)
                 logBeta = self.log_backward(sequence)
 
                 ##Find xi [n_states x n_states x n_obs - 1]
-                xi = np.empty((self.n_states,self.n_states,self.n_obs-1))
-                for t in range(0,self.n_obs-1):
+                xi = np.empty((self.n_states,self.n_states,T-1))
+                for t in range(0,T-1):
                     obsTP1 = sequence[t+1]
                     for i in range(0,self.n_states):
                         for j in range(0,self.n_states):
@@ -71,7 +71,7 @@ class HMM():
                             xi[i,j,t] = numerator-probObservations
 
                 ##Find Gamma [n_states x n_obs -1]
-                gamma = np.empty((self.n_states,self.n_obs-1))
+                gamma = np.empty((self.n_states,T-1))
                 gamma = logsumexp(xi,axis=1)
 
                 ##Find PiBar
@@ -87,9 +87,9 @@ class HMM():
                 #Find B bar
                 #find the new gamma for gamma up to time t
                 BBar = np.empty((self.B.shape))
-                gammaUpToT = np.empty((self.n_states, self.n_obs))
+                gammaUpToT = np.empty((self.n_states, T))
 
-                for t in range(0,self.n_obs):
+                for t in range(0,T):
                     for i in range(0,self.n_states):
                         gammaUpToT[i,t] = (logAlpha[i,t] + logBeta[i,t]) - probObservations
 
@@ -97,7 +97,7 @@ class HMM():
                     # Find numerator
                     expectedTimesStateJAndObservingVk = np.zeros((self.n_states,))
 
-                    for t in range(0,self.n_obs):
+                    for t in range(0,T):
                         #add to total only if observed is the same as the row of the B matrix
                         observationT = sequence[t]
                         if observationT==k:
