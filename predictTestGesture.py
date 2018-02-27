@@ -26,23 +26,25 @@ def predictTestGesture(folder = 'train_data/*.txt'):
         #HMMModels = trainGestureModel()
         #Else just load the pre-trained models
         HMMModels = pickle.load(open('HMMModels.pickle', 'rb'))
-
+        [_,maxNumModels] = HMMModels.shape
         #Print which model we're running
         print "The test file we're running is: " + fileName
         #Predict the model that generated the sequence of observations using argmax
         maxProability = -float("inf")
-        #set an inital guess of the name 
+        #set an inital guess of the name
         predictedGestureName = "beat3"
         for i in range(0,len(HMMModels)):
             gestureName = gestureNames[i]
-            model = HMMModels[i,0]
-            #Use the forward algorithm to find the probaility that the model predicts the sequence
-            [logProbabilityOfObs,_] = model.log_forward(observationSequence)
-            #print "The log probability for " + gestureName+" is: "+str(logProbabilityOfObs)
-            #Check if this model has a higher probaility than the higest so far
-            if logProbabilityOfObs > maxProability:
-                maxProability = logProbabilityOfObs
-                predictedGestureName = gestureName
+            for j in range(0,maxNumModels):
+                model = HMMModels[i,j]
+                if model is not None:
+                    #Use the forward algorithm to find the probaility that the model predicts the sequence
+                    [logProbabilityOfObs,_] = model.log_forward(observationSequence)
+                    #print "The log probability for " + gestureName+" is: "+str(logProbabilityOfObs)
+                    #Check if this model has a higher probaility than the higest so far
+                    if logProbabilityOfObs > maxProability:
+                        maxProability = logProbabilityOfObs
+                        predictedGestureName = gestureName
 
         #return the name of that gesture
         print "The predicted gesture for filename " + fileName + " is: " + predictedGestureName

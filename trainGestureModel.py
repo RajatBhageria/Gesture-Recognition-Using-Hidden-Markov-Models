@@ -29,7 +29,7 @@ def trainGestureModel():
 
     #Get the probability of observations
     gestureNames = np.array(['beat3','beat4','circle','eight','inf','wave'],dtype='object')
-    HMMModels = np.empty((6,1),dtype='object')
+    HMMModels = np.empty((6,7),dtype='object')
     #iterate through the list of gestures
     for gesture in range(0,gestureNames.shape[0]):
         gestureName = gestureNames[gesture]
@@ -38,13 +38,12 @@ def trainGestureModel():
         with open(observationDataFileName, 'rb') as handle:
             observationSequences = pickle.load(handle)
         #Generate the trained HMM model for the correct gesture
-        hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
-        #for j in range(0,1):#,len(observationSequences)):
-        observationSequence = observationSequences[0]
-        hmmModelOfGesture.baum_welch(observationSequence, max_iter=3)
-        print hmmModelOfGesture.log_forward(observationSequence)
-        #Add the model to the list of models
-        HMMModels[gesture] = hmmModelOfGesture
+        for j in range(0,len(observationSequences)):
+            hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
+            observationSequence = observationSequences[j]
+            hmmModelOfGesture.baum_welch(observationSequence, max_iter=3)
+            #Add the model to the list of models
+            HMMModels[gesture,j] = hmmModelOfGesture
 
     with open('HMMModels.pickle', 'wb') as handle:
         pickle.dump(HMMModels, handle, protocol=pickle.HIGHEST_PROTOCOL)
