@@ -83,13 +83,13 @@ class HMM():
                 transitionsFromI = logsumexp(gamma,axis=1) #sum over time
                 ABar = transitionsFromIToJ - transitionsFromI
 
-                #Find B bar
+                # Find B bar
                 BBar = np.empty((self.B.shape))
                 gammaUpToT = np.empty((self.n_states, T))
 
-                for t in range(0,T):
-                    for i in range(0,self.n_states):
-                        gammaUpToT[i,t] = (logAlpha[i,t] + logBeta[i,t]) - probObservations
+                for t in range(0, T):
+                    for i in range(0, self.n_states):
+                        gammaUpToT[i, t] = (logAlpha[i, t] + logBeta[i, t]) - probObservations
 
                 for k in range(0, self.n_obs):
                     # Find numerator
@@ -99,7 +99,8 @@ class HMM():
                         # add to total only if observed is the same as the row of the B matrix
                         observationT = sequence[t]
                         if observationT == k:
-                            expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:,t])
+                            expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:, t])
+
                     expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
 
                     # find denominator

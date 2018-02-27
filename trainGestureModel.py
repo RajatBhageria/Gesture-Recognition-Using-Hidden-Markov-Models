@@ -39,9 +39,10 @@ def trainGestureModel():
             observationSequences = pickle.load(handle)
         #Generate the trained HMM model for the correct gesture
         hmmModelOfGesture = HMM(n_states, n_obs, pi, A, B)
-        for j in range(0,len(observationSequences)):
-            observationSequence = observationSequences[j]
-            hmmModelOfGesture.baum_welch(observationSequence,max_iter=1)
+        #for j in range(0,1):#,len(observationSequences)):
+        observationSequence = observationSequences[0]
+        hmmModelOfGesture.baum_welch(observationSequence, max_iter=3)
+        print hmmModelOfGesture.log_forward(observationSequence)
         #Add the model to the list of models
         HMMModels[gesture] = hmmModelOfGesture
 

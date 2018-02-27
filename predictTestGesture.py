@@ -6,7 +6,7 @@ from trainGestureModel import trainGestureModel
 #returns a striong of the predicted gesture from a list of 'beat3','beat4','circle','eight','inf','wave'
 def predictTestGesture(fileName = None):
     #filename = 'test_data/file.txt'
-    filename = 'train_data/eight07.txt'
+    filename = 'train_data/inf11.txt'
     IMU = np.loadtxt(filename)
     allData = IMU[:,1:6]
 
