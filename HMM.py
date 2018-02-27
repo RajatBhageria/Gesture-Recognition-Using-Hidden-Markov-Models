@@ -53,65 +53,61 @@ class HMM():
     def baum_welch(self, obs_sequence_list, max_iter=100):
         counter = 0
         while (counter < max_iter):
-            #need a for loop here I think?
-            #numObsSequences = len(obs_sequence_list)
-                sequence = obs_sequence_list
-                [T,] = np.array(sequence).shape
-                [probObservations,logAlpha] = self.log_forward(sequence)
-                logBeta = self.log_backward(sequence)
+            sequence = obs_sequence_list
+            [T,] = np.array(sequence).shape
+            [probObservations,logAlpha] = self.log_forward(sequence)
+            logBeta = self.log_backward(sequence)
 
-                ##Find xi [n_states x n_states x n_obs - 1]
-                xi = np.empty((self.n_states,self.n_states,T-1))
-                for t in range(0,T-1):
-                    obsTP1 = sequence[t+1]
-                    for i in range(0,self.n_states):
-                        for j in range(0,self.n_states):
-                            numerator = logAlpha[i,t] + np.log(self.A[i,j]) + np.log(self.B[obsTP1,j]) + logBeta[j,t+1]
-                            xi[i,j,t] = numerator-probObservations
+            ##Find xi [n_states x n_states x n_obs - 1]
+            xi = np.empty((self.n_states,self.n_states,T-1))
+            for t in range(0,T-1):
+                obsTP1 = sequence[t+1]
+                for i in range(0,self.n_states):
+                    for j in range(0,self.n_states):
+                        numerator = logAlpha[i,t] + np.log(self.A[i,j]) + np.log(self.B[obsTP1,j]) + logBeta[j,t+1]
+                        xi[i,j,t] = numerator-probObservations
 
-                ##Find Gamma [n_states x n_obs -1]
-                gamma = np.empty((self.n_states,T-1))
-                gamma = logsumexp(xi,axis=1)
+            ##Find Gamma [n_states x n_obs -1]
+            gamma = np.empty((self.n_states,T-1))
+            gamma = logsumexp(xi,axis=1)
 
-                ##Find PiBar
-                piBar = gamma[:,0]
+            ##Find PiBar
+            piBar = gamma[:,0]
 
-                ##Find ABar
-                #This is a [n_state x n_state] matrix
-                transitionsFromIToJ = logsumexp(xi,axis=2) #sum over time
-                #This is a [n_state x 1] matrix
-                transitionsFromI = logsumexp(gamma,axis=1) #sum over time
-                ABar = transitionsFromIToJ - transitionsFromI
+            ##Find ABar
+            #This is a [n_state x n_state] matrix
+            transitionsFromIToJ = logsumexp(xi,axis=2) #sum over time
+            #This is a [n_state x 1] matrix
+            transitionsFromI = logsumexp(gamma,axis=1) #sum over time
+            ABar = transitionsFromIToJ - transitionsFromI
 
-                # Find B bar
-                BBar = np.empty((self.B.shape))
-                gammaUpToT = np.empty((self.n_states, T))
-
+            ##Find B bar
+            BBar = np.empty((self.B.shape))
+            #Find the gamme function up to T (as opposed to to T-1)
+            gammaUpToT = np.empty((self.n_states, T))
+            for t in range(0, T):
+                for i in range(0, self.n_states):
+                    gammaUpToT[i, t] = (logAlpha[i, t] + logBeta[i, t]) - probObservations
+            #Update BBar
+            for k in range(0, self.n_obs):
+                # Find numerator
+                expectedTimesStateJAndObservingVk = np.zeros((self.n_states,))
                 for t in range(0, T):
-                    for i in range(0, self.n_states):
-                        gammaUpToT[i, t] = (logAlpha[i, t] + logBeta[i, t]) - probObservations
+                    # add to total only if observed is the same as the row of the B matrix
+                    observationT = sequence[t]
+                    if observationT == k:
+                        expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:, t])
+                expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
+                # find denominator
+                expectedTimesStateJ = logsumexp(gammaUpToT, axis=1)
+                BBar[k, :] = (expectedTimesStateJAndObservingVk - expectedTimesStateJ).T
 
-                for k in range(0, self.n_obs):
-                    # Find numerator
-                    expectedTimesStateJAndObservingVk = np.zeros((self.n_states,))
+            ##Set A = ABar, B = Bar, and Pi = PiBar
+            self.A = np.exp(ABar)
+            self.B = np.exp(BBar)
+            self.Pi = np.exp(piBar)
 
-                    for t in range(0, T):
-                        # add to total only if observed is the same as the row of the B matrix
-                        observationT = sequence[t]
-                        if observationT == k:
-                            expectedTimesStateJAndObservingVk = expectedTimesStateJAndObservingVk + np.exp(gammaUpToT[:, t])
-
-                    expectedTimesStateJAndObservingVk = np.log(expectedTimesStateJAndObservingVk)
-
-                    # find denominator
-                    expectedTimesStateJ = logsumexp(gammaUpToT, axis=1)
-                    BBar[k, :] = (expectedTimesStateJAndObservingVk - expectedTimesStateJ).T
-                ##Set A = ABar, B = Bar, and Pi = PiBar
-                self.A = np.exp(ABar)
-                self.B = np.exp(BBar)
-                self.Pi = np.exp(piBar)
-
-                #increase counter by one for the next iteration
-                counter = counter + 1
+            #increase counter by one for the next iteration
+            counter = counter + 1
 
         return self.A, self.B, self.Pi

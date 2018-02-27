@@ -1,43 +1,51 @@
 import numpy as np
 import pickle
+import glob
 from HMM import HMM
 from trainGestureModel import trainGestureModel
 
 #returns a striong of the predicted gesture from a list of 'beat3','beat4','circle','eight','inf','wave'
-def predictTestGesture(fileName = None):
-    filename = 'train_data/wave31.txt'
-    IMU = np.loadtxt(filename)
-    allData = IMU[:,1:6]
+def predictTestGesture(folder = 'train_data/*.txt'):
+    # import all the IMU data
+    file_list = glob.glob(folder)
+    allData = np.empty((0, 5))
 
-    #predict the clusters using k-means and generate an observation sequence
-    KMeansModel = pickle.load(open('kmeans_model.pickle', 'rb'))
-    observationSequence = KMeansModel.predict(allData)
+    for i in range(0, len(file_list)):
+        fileName = file_list[i]
+        IMU = np.loadtxt(fileName)
+        allData = IMU[:, 1:6]
 
-    #Generate HMM models for all the gestures
-    gestureNames = np.array(['beat3','beat4','circle','eight','inf','wave'],dtype='object')
+        #predict the clusters using k-means and generate an observation sequence
+        KMeansModel = pickle.load(open('kmeans_model.pickle', 'rb'))
+        observationSequence = KMeansModel.predict(allData)
 
-    #Run if you want to train new models
-    #HMMModels = trainGestureModel()
-    #Else just load the pre-trained models
-    HMMModels = pickle.load(open('HMMModels.pickle', 'rb'))
+        #Generate HMM models for all the gestures
+        gestureNames = np.array(['beat3','beat4','circle','eight','inf','wave'],dtype='object')
 
-    #Predict the model that generated the sequence of observations using argmax
-    maxProability = -float("inf")
-    predictedGestureName = ""
-    for i in range(0,len(HMMModels)):
-        gestureName = gestureNames[i]
-        model = HMMModels[i,0]
-        #Use the forward algorithm to find the probaility that the model predicts the sequence
-        [logProbabilityOfObs,_] = model.log_forward(observationSequence)
-        print "The log probability for " + gestureName+" is: "+str(logProbabilityOfObs)
-        #Check if this model has a higher probaility than the higest so far
-        if logProbabilityOfObs > maxProability:
-            maxProability = logProbabilityOfObs
-            predictedGestureName = gestureName
+        #Run if you want to train new models
+        #HMMModels = trainGestureModel()
+        #Else just load the pre-trained models
+        HMMModels = pickle.load(open('HMMModels.pickle', 'rb'))
 
-    #return the name of that gesture
-    print "The predicted gesture is: " + predictedGestureName
-    return predictedGestureName
+        #Print which model we're running
+        print "The test file we're running is: " + fileName
+        #Predict the model that generated the sequence of observations using argmax
+        maxProability = -float("inf")
+        #set an inital guess of the name 
+        predictedGestureName = "beat3"
+        for i in range(0,len(HMMModels)):
+            gestureName = gestureNames[i]
+            model = HMMModels[i,0]
+            #Use the forward algorithm to find the probaility that the model predicts the sequence
+            [logProbabilityOfObs,_] = model.log_forward(observationSequence)
+            #print "The log probability for " + gestureName+" is: "+str(logProbabilityOfObs)
+            #Check if this model has a higher probaility than the higest so far
+            if logProbabilityOfObs > maxProability:
+                maxProability = logProbabilityOfObs
+                predictedGestureName = gestureName
+
+        #return the name of that gesture
+        print "The predicted gesture for filename " + fileName + " is: " + predictedGestureName
 
 if __name__ == "__main__":
     predictTestGesture()
