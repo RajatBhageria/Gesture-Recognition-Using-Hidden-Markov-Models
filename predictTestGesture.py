@@ -5,8 +5,7 @@ from trainGestureModel import trainGestureModel
 
 #returns a striong of the predicted gesture from a list of 'beat3','beat4','circle','eight','inf','wave'
 def predictTestGesture(fileName = None):
-    #filename = 'test_data/file.txt'
-    filename = 'train_data/inf11.txt'
+    filename = 'train_data/wave31.txt'
     IMU = np.loadtxt(filename)
     allData = IMU[:,1:6]
 
@@ -30,14 +29,14 @@ def predictTestGesture(fileName = None):
         model = HMMModels[i,0]
         #Use the forward algorithm to find the probaility that the model predicts the sequence
         [logProbabilityOfObs,_] = model.log_forward(observationSequence)
-        print gestureName+" "+str(logProbabilityOfObs)
+        print "The log probability for " + gestureName+" is: "+str(logProbabilityOfObs)
         #Check if this model has a higher probaility than the higest so far
         if logProbabilityOfObs > maxProability:
             maxProability = logProbabilityOfObs
             predictedGestureName = gestureName
 
     #return the name of that gesture
-    print predictedGestureName
+    print "The predicted gesture is: " + predictedGestureName
     return predictedGestureName
 
 if __name__ == "__main__":
